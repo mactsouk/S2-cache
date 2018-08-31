@@ -36,5 +36,7 @@ blocks:
       - name: Get cache directory
         commands:
           - checkout
+          - export KEY=$(echo $(md5sum README.md) | grep -o "^\w*\b")
+          - echo $KEY
           - echo "make docker.push"
 

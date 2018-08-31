@@ -17,6 +17,7 @@ blocks:
           - echo $SEMAPHORE_CACHE_URL
           - echo $SEMAPHORE_CACHE_USERNAME
           - echo $SSH_PRIVATE_KEY_PATH
+          - cat $SSH_PRIVATE_KEY_PATH
       - name: Create cache key
         commands:
           - checkout

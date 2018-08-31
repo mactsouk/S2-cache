@@ -19,18 +19,14 @@ blocks:
           - echo $SEMAPHORE_CACHE_URL
           - echo $SEMAPHORE_CACHE_USERNAME
           - echo $SSH_PRIVATE_KEY_PATH
-      - name: Create cache directory
-        commands:
-          - checkout
-          - mkdir -p cache_dir
       - name: Create cache key
         commands:
           - checkout
-          - export KEY=$(echo $(md5sum README.md) | grep -o "^\w*\b")
-          - echo $KEY
           - mkdir -p cache_dir
           - touch cache_dir/my_data
-          - echo $KEY >> cache_dir/my_data
+          - echo $KEY >> my_data
+          - export KEY=$(echo $(md5sum README.md) | grep -o "^\w*\b")
+          - echo $KEY
           - cache store --key $KEY --path cache_dir
 
   - name: Use cache

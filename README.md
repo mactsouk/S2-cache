@@ -1,1 +1,1 @@
-# Sample Semaphore 2.0 project for illustrating cache
+# Sample Semaphore 2.0 project for illustrating the cache utility

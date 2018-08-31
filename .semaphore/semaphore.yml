@@ -14,8 +14,6 @@ blocks:
       jobs:
       - name: Check environment variables
         commands:
-          - checkout
-          - echo "Docker build..."
           - echo $SEMAPHORE_CACHE_URL
           - echo $SEMAPHORE_CACHE_USERNAME
           - echo $SSH_PRIVATE_KEY_PATH

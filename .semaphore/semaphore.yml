@@ -1,63 +1,40 @@
-version: "v1.0"
-name: First pipeline example
+version: v1.0
+name: Testing cache utility
 agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
 
 blocks:
-  - name: "Build"
+  - name: Create cache
     task:
       env_vars:
         - name: APP_ENV
           value: prod
       jobs:
-      - name: Docker build
+      - name: Check environment variables
         commands:
           - checkout
-          - ls -1
-          - echo $APP_ENV
           - echo "Docker build..."
-          - echo "done"
+          - echo $SEMAPHORE_CACHE_URL
+          - echo $SEMAPHORE_CACHE_USERNAME
+          - echo $SSH_PRIVATE_KEY_PATH
+      - name: Create cache directory
+        commands:
+          - checkout
+          - mkdir -p cache_dir
+      - name: Create cache key
+        commands:
+          - checkout
+          - export KEY=$(echo $(md5sum README.md) | grep -o "^\w*\b")
+          - echo $KEY
+          - mkdir -p cache_dir
 
-  - name: "Smoke tests"
+  - name: Use cache
     task:
       jobs:
-      - name: Smoke
-        commands:
-          - checkout
-          - echo "make smoke"
-
-  - name: "Unit tests"
-    task:
-      jobs:
-      - name: RSpec
-        commands:
-          - checkout
-          - echo "make rspec"
-
-      - name: Lint code
-        commands:
-          - checkout
-          - echo "make lint"
-
-      - name: Check security
-        commands:
-          - checkout
-          - echo "make security"
-
-  - name: "Integration tests"
-    task:
-      jobs:
-      - name: Cucumber
-        commands:
-          - checkout
-          - echo "make cucumber"
-
-  - name: "Push Image"
-    task:
-      jobs:
-      - name: Push
+      - name: Get cache directory
         commands:
           - checkout
           - echo "make docker.push"
+

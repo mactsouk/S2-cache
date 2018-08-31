@@ -29,6 +29,9 @@ blocks:
           - export KEY=$(echo $(md5sum README.md) | grep -o "^\w*\b")
           - echo $KEY
           - mkdir -p cache_dir
+          - touch cache_dir/my_data
+          - echo $KEY >> cache_dir/my_data
+          - cache store --key $KEY --path cache_dir
 
   - name: Use cache
     task:
@@ -38,5 +41,7 @@ blocks:
           - checkout
           - export KEY=$(echo $(md5sum README.md) | grep -o "^\w*\b")
           - echo $KEY
-          - echo "make docker.push"
+          - cache restore --key $KEY
+          - ls -l cache_dir
+          - cat cache_dir/my_data
 

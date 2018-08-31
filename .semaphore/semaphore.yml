@@ -22,10 +22,11 @@ blocks:
       - name: Create cache key
         commands:
           - checkout
+		  - export KEY=$(echo $(md5sum README.md) | grep -o "^\w*\b")
+		  - cache restore --key $KEY
           - mkdir -p cache_dir
           - touch cache_dir/my_data
           - echo $KEY >> my_data
-          - export KEY=$(echo $(md5sum README.md) | grep -o "^\w*\b")
           - echo $KEY
           - cache store --key $KEY --path cache_dir
 

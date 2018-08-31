@@ -1,5 +1,5 @@
 version: v1.0
-name: Testing cache utility
+name: Using cache utility
 agent:
   machine:
     type: e1-standard-2

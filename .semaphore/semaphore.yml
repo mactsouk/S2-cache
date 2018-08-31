@@ -25,7 +25,7 @@ blocks:
           - export KEY=$(echo $(md5sum README.md) | grep -o "^\w*\b")
           - mkdir -p cache_dir
           - touch cache_dir/my_data
-          - echo $KEY > my_data
+          - echo $KEY > cache_dir/my_data
           - echo $KEY
           - cache store --key $KEY --path cache_dir
           - cat cache_dir/my_data

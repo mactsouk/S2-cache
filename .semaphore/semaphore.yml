@@ -40,3 +40,4 @@ blocks:
           - cache restore --key $KEY
           - ls -l cache_dir
           - cat cache_dir/my_data
+
